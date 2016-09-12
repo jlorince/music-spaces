@@ -61,6 +61,7 @@ daterange = pd.date_range(start='2005-07-01',end='2012-12-31',freq='D')
 
 #genres = {'genre1':sorted(gn['genre1'].unique()),'genre2':sorted(gn['genre2'].unique()),'genre3':sorted(gn['genre3'].unique())}
 #cPickle.dump(genres,open(outputdir+'gn_genres.pkl','w'))
+genres = cPickle.load(open(outputdir+'gn_genres.pkl'))
 
 result = pd.DataFrame(0.,index=daterange,columns=genres['genre1']+genres['genre2']+genres['genre3'])
 # if len(done)==0:
