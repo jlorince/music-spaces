@@ -80,7 +80,7 @@ for i,f in enumerate(files):
 
     result += concat
 
-    rootLogger.info("{} ({}/{}, {:.1f})".format(f,i+1,n_users,time.time()-user_start))
+    rootLogger.info("{} ({}/{}, {:.1f}, {})".format(f,i+1,n_users,time.time()-user_start,len(df)))
     #time_elapsed = time.time() - start
     # if time_elapsed >= (wall_time-(time_buffer)):
     #     result.to_pickle(outputdir+'genre_data')
