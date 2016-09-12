@@ -48,7 +48,7 @@ rootLogger.addHandler(consoleHandler)
 rootLogger.setLevel(logging.INFO)
 
 
-offset = offset*blocksize
+offset = idx*blocksize
 files = sorted(glob.glob(inputdir+'*'))[offset:offset+blocksize]
 if len(files)==0:
     sys.exit()
