@@ -71,8 +71,8 @@ result = pd.DataFrame(0.,index=daterange,columns=genres['genre1']+genres['genre2
 
 for i,f in enumerate(files):
     user_start = time.time()
-    if f in done:
-        continue
+    # if f in done:
+    #     continue
     df = pd.read_table(f,sep='\t',header=None,names=['item_id','artist_id','scrobble_time'],parse_dates=['scrobble_time']).join(gn,on='item_id',how='left')
     for level in genres:
         vars()['df_'+level] = df.set_index('scrobble_time').groupby([pd.TimeGrouper(freq='D'),level]).count()['item_id'].unstack().reindex(daterange,columns=genres[level])
