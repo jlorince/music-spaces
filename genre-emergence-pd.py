@@ -31,7 +31,7 @@ gn_path = '/N/dc2/scratch/jlorince/gracenote_song_data'
 #gn_path = '/Users/jaredlorince/Dropbox/Research/misc.data/gracenote_song_data'
 
 
-if os.path.exists(outputdir+'genre_data_'str(idx)):
+if os.path.exists(outputdir+'genre_data_'+str(idx)):
     sys.exit()
 
 
