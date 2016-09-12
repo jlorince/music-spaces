@@ -31,10 +31,6 @@ gn_path = '/N/dc2/scratch/jlorince/gracenote_song_data'
 #gn_path = '/Users/jaredlorince/Dropbox/Research/misc.data/gracenote_song_data'
 
 
-if os.path.exists(outputdir+'genre_data_'+str(idx)):
-    sys.exit()
-
-
 now = datetime.datetime.now()
 log_filename = now.strftime('genres_%Y%m%d_%H%M%S.log')
 logFormatter = logging.Formatter("%(asctime)s\t[%(levelname)s]\t%(message)s")
@@ -46,6 +42,11 @@ consoleHandler = logging.StreamHandler()
 consoleHandler.setFormatter(logFormatter)
 rootLogger.addHandler(consoleHandler)
 rootLogger.setLevel(logging.INFO)
+
+if os.path.exists(outputdir+'genre_data_'+str(idx)):
+    rootLogger.info("Block {} already done".format(idx))
+    sys.exit()
+
 
 
 offset = idx*blocksize
@@ -80,7 +81,7 @@ for i,f in enumerate(files):
 
     result += concat
 
-    rootLogger.info("{} ({}/{}, {:.1f}, {})".format(f,i+1,n_users,time.time()-user_start,len(df)))
+    rootLogger.info("{} ({}/{}, {:.1f}, {}, block {})".format(f,i+1,n_users,time.time()-user_start,len(df),idx))
     #time_elapsed = time.time() - start
     # if time_elapsed >= (wall_time-(time_buffer)):
     #     result.to_pickle(outputdir+'genre_data')
