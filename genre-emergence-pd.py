@@ -85,4 +85,4 @@ for i,f in enumerate(files):
     #     result.to_pickle(outputdir+'genre_data')
     #     sys.exit()
 
-result.to_pickle(outputdir+'genre_data_'str(idx))
+result.to_pickle(outputdir+'genre_data_'+str(idx))
