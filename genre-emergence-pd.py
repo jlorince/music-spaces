@@ -7,6 +7,7 @@ import sys
 import cPickle
 import logging
 import datetime
+import os
 
 # start = time.time()
 # wall_time = 4 * 60 * 60 # 4hr
@@ -24,6 +25,15 @@ import datetime
 idx = int(sys.argv[0])
 blocksize= 170
 
+inputdir = '/N/dc2/scratch/jlorince/scrobbles-complete/'
+outputdir = '/N/dc2/scratch/jlorince/genre_stuff/'
+gn_path = '/N/dc2/scratch/jlorince/gracenote_song_data'
+#gn_path = '/Users/jaredlorince/Dropbox/Research/misc.data/gracenote_song_data'
+
+
+if os.path.exists(outputdir+'genre_data_'str(idx)):
+    sys.exit()
+
 
 now = datetime.datetime.now()
 log_filename = now.strftime('genres_%Y%m%d_%H%M%S.log')
@@ -37,10 +47,6 @@ consoleHandler.setFormatter(logFormatter)
 rootLogger.addHandler(consoleHandler)
 rootLogger.setLevel(logging.INFO)
 
-inputdir = '/N/dc2/scratch/jlorince/scrobbles-complete/'
-outputdir = '/N/dc2/scratch/jlorince/genre_stuff/'
-gn_path = '/N/dc2/scratch/jlorince/gracenote_song_data'
-#gn_path = '/Users/jaredlorince/Dropbox/Research/misc.data/gracenote_song_data'
 
 offset = offset*blocksize
 files = sorted(glob.glob(inputdir+'*'))[offset:offset+blocksize]
@@ -74,7 +80,7 @@ for i,f in enumerate(files):
     result += concat
 
     rootLogger.info("{} ({}/{}, {:.1f})".format(f,i+1,n_users,time.time()-user_start))
-    time_elapsed = time.time() - start
+    #time_elapsed = time.time() - start
     # if time_elapsed >= (wall_time-(time_buffer)):
     #     result.to_pickle(outputdir+'genre_data')
     #     sys.exit()
