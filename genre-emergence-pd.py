@@ -22,7 +22,7 @@ import os
 #                 line = line.strip().split('\t')
 #                 done.add(line[-1].split()[0])
 
-idx = int(sys.argv[0])
+idx = int(sys.argv[1])
 blocksize= 170
 
 inputdir = '/N/dc2/scratch/jlorince/scrobbles-complete/'
