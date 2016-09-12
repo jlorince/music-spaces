@@ -59,14 +59,14 @@ gn = pd.read_table(gn_path,usecols=['songID','genre1','genre2','genre3']).dropna
 
 daterange = pd.date_range(start='2005-07-01',end='2012-12-31',freq='D')
 
-genres = {'genre1':sorted(gn['genre1'].unique()),'genre2':sorted(gn['genre2'].unique()),'genre3':sorted(gn['genre3'].unique())}
-cPickle.dump(genres,open(outputdir+'gn_genres.pkl','w'))
+#genres = {'genre1':sorted(gn['genre1'].unique()),'genre2':sorted(gn['genre2'].unique()),'genre3':sorted(gn['genre3'].unique())}
+#cPickle.dump(genres,open(outputdir+'gn_genres.pkl','w'))
 
-
-if len(done)==0:
-    result = pd.DataFrame(0.,index=daterange,columns=genres['genre1']+genres['genre2']+genres['genre3'])
-else:
-    result = pd.read_pickle(outputdir+'genre_data')
+result = pd.DataFrame(0.,index=daterange,columns=genres['genre1']+genres['genre2']+genres['genre3'])
+# if len(done)==0:
+#     result = pd.DataFrame(0.,index=daterange,columns=genres['genre1']+genres['genre2']+genres['genre3'])
+# else:
+#     result = pd.read_pickle(outputdir+'genre_data')
 
 for i,f in enumerate(files):
     user_start = time.time()
