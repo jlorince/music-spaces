@@ -88,3 +88,28 @@ for i,f in enumerate(files):
     #     sys.exit()
 
 result.to_pickle(outputdir+'genre_data_'+str(idx))
+
+
+"""
+
+# concat code
+
+import pandas as pd
+import datetime
+import cPickle
+import os
+
+outputdir = '/N/dc2/scratch/jlorince/genre_stuff/'
+
+
+genres = cPickle.load(open(outputdir+'gn_genres.pkl'))
+files = [f for f in os.listdir('.') if f.startswith('genre')]
+daterange = pd.date_range(start='2005-07-01',end='2012-12-31',freq='D')
+result = pd.DataFrame(0.,index=daterange,columns=genres['genre1']+genres['genre2']+genres['genre3'])
+for f in files:
+    print f
+    result += pd.read_pickle(f)
+
+print result[result.columns[:10]].sum().sum()
+
+"""
