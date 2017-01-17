@@ -24,7 +24,6 @@ class timed(object):
 dim = 200
 win = 5    
 min_count = 5
-workers = mp.cpu_count()
 
 scrobble_path = 'P:/Projects/BigMusic/jared.IU/scrobbles-complete/'
 base_output_path = 'P:/Projects/BigMusic/jared.data/d2v/blocks/'
@@ -64,18 +63,18 @@ if __name__=='__main__':
     if not os.path.exists(base_output_path+'docs_artist_blocks.txt.gz'):
         procs = mp.cpu_count()
         pool = mp.Pool(procs)
-        files = sorted(glob.glob(scrobble_path+'*.txt'))
+        files = glob.glob(scrobble_path+'*.txt')
         n = len(files)
         chunksize = int(math.ceil(n / float(procs)))
         with gzip.open(base_output_path+'docs_artist_blocks.txt.gz','w') as fout, gzip.open(base_output_path+'indices.txt.gz','w') as indices:
-            for userid,doc in tq(pool.imap(process_artist_blocks,files,chunksize=chunksize),total=n):
+            for userid,doc in tq(pool.imap_unordered(process_artist_blocks,files,chunksize=chunksize),total=n):
                 fout.write(doc+'\n')
                 indices.write(userid+'\n')
 
     with timed('Loading docs'):
         documents = [doc for doc in tq(TaggedLineDocument(base_output_path+'docs_artist_blocks.txt.gz'))]
     with timed('Running model'):
-        model = Doc2Vec(documents, size=dim, window=win, min_count=min_count,workers=workers)
+        model = Doc2Vec(documents, size=dim, window=win, min_count=min_count,workers=procs)
 
     with timed('Saving results'):
         # from sklearn.preprocessing import Normalizer
