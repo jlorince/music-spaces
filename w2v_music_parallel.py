@@ -29,12 +29,6 @@ workers = mp.cpu_count()
 scrobble_path = 'P:/Projects/BigMusic/jared.IU/scrobbles-complete/'
 base_output_path = 'P:/Projects/BigMusic/jared.data/d2v/blocks/'
 
-output_path = base_output_path+'{}-{}-{}'.format(dim,win,min_count)
-if os.path.exists(output_path):
-    raise Exception('path exists!')
-else:
-    os.mkdir(output_path)
-
 # if not os.path.exists(base_output_path+'docs.txt.gz'):
 #     with gzip.open(base_output_path+'docs.txt.gz','w') as fout, gzip.open(base_output_path+'indices.txt.gz','w') as indices:
 #         files = sorted(glob.glob(scrobble_path+'*.txt'))
@@ -62,6 +56,14 @@ for artist in ('radiohead','metallica','britney+spears','weezer'):
     print get_most_similar(artist)
 
 if __name__=='__main__':
+
+    output_path = base_output_path+'{}-{}-{}'.format(dim,win,min_count)
+    if os.path.exists(output_path):
+        raise Exception('path exists!')
+    else:
+        os.mkdir(output_path)
+
+    
     import math
     if not os.path.exists(base_output_path+'docs_artist_blocks.txt.gz'):
         procs = mp.cpu_count()
