@@ -51,10 +51,6 @@ def process_artist_blocks(fi):
     userid = fi[fi.rfind('\\')+1:-4]
     return userid,doc
     
-
-for artist in ('radiohead','metallica','britney+spears','weezer'):
-    print get_most_similar(artist)
-
 if __name__=='__main__':
 
     output_path = base_output_path+'{}-{}-{}'.format(dim,win,min_count)
@@ -76,8 +72,8 @@ if __name__=='__main__':
                 fout.write(doc+'\n')
                 indices.write(userid+'\n')
 
-    print 'Loading docs...'
-    documents = [doc for doc in tq(TaggedLineDocument(base_output_path+'docs_artist_blocks.txt.gz'))]
+    with timed('Loading docs'):
+        documents = [doc for doc in tq(TaggedLineDocument(base_output_path+'docs_artist_blocks.txt.gz'))]
     with timed('Running model'):
         model = Doc2Vec(documents, size=dim, window=win, min_count=min_count,workers=workers)
 
