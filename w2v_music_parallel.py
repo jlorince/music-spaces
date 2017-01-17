@@ -1,4 +1,3 @@
-from gensim.models.doc2vec import Doc2Vec,TaggedLineDocument
 import gzip,os,glob,cPickle
 import multiprocessing as mp
 import numpy as np
@@ -60,6 +59,8 @@ if __name__=='__main__':
 
 
     import math
+    from gensim.models.doc2vec import Doc2Vec,TaggedLineDocument
+
     if not os.path.exists(base_output_path+'docs_artist_blocks.txt.gz'):
         procs = mp.cpu_count()
         pool = mp.Pool(procs)
