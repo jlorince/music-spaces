@@ -63,7 +63,7 @@ if __name__=='__main__':
     else:
         os.mkdir(output_path)
 
-    
+
     import math
     if not os.path.exists(base_output_path+'docs_artist_blocks.txt.gz'):
         procs = mp.cpu_count()
@@ -91,7 +91,7 @@ if __name__=='__main__':
         # np.save(output_path+'/word_features_normed-{}-{}-{}.npy'.format(dim,win,min_count),words_normed)
         model.save(output_path+'/model-{}-{}-{}'.format(dim,win,min_count))
 
-    with timed('Sanity checks...')
+    with timed('Sanity checks...'):
         dpath = 'P:/Projects/BigMusic/jared.data/d2v/artist_dict.pkl'
         if not os.path.exists(dpath):
             artist_dict = {}
