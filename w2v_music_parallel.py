@@ -67,7 +67,7 @@ if __name__=='__main__':
         n = len(files)
         chunksize = int(math.ceil(n / float(procs)))
         with gzip.open(base_output_path+'docs_artist_blocks.txt.gz','w') as fout, gzip.open(base_output_path+'indices.txt.gz','w') as indices:
-            for userid,doc in tq(pool.imap_unordered(process_artist_blocks,files,chunksize=chunksize),total=n):
+            for userid,doc in tq(pool.imap_unordered(process_artist_blocks,files,chunksize=100),total=n):
                 fout.write(doc+'\n')
                 indices.write(userid+'\n')
 
