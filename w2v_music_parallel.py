@@ -92,8 +92,10 @@ if __name__=='__main__':
                 indices.write(userid+'\n')
 
     with timed('Loading docs'):
-        #documents = [doc for doc in tq(TaggedLineDocument(base_output_path+'docs_artist_blocks.txt.gz'))]
-        documents = [doc for doc in tq(TaggedLineDocument(base_output_path+'docs_songs.txt.gz'))]
+        #documents = TaggedLineDocument(base_output_path+'docs_artist_blocks.txt.gz')
+        #documents = [doc for doc in tq(TaggedLineDocument(base_output_path+'docs_songs.txt.gz'))]
+        documents = TaggedLineDocument(base_output_path+'docs_songs.txt.gz')
+
     with timed('Running model'):
         model = Doc2Vec(documents, size=dim, window=win, min_count=min_count,workers=procs)
 
