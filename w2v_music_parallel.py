@@ -79,9 +79,10 @@ if __name__=='__main__':
     #         for userid,doc in tq(pool.imap_unordered(process_artist_blocks,files,chunksize=100),total=n):
     #             fout.write(doc+'\n')
     #             indices.write(userid+'\n')
+    procs = 30 #mp.cpu_count()
 
     if not os.path.exists(base_output_path+'docs_songs.txt.gz'):
-        procs = 30 #mp.cpu_count()
+        
         pool = mp.Pool(procs)
         files = glob.glob(scrobble_path+'*.txt')
         n = len(files)
