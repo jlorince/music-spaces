@@ -81,8 +81,8 @@ if __name__=='__main__':
     #             indices.write(userid+'\n')
 
     if not os.path.exists(base_output_path+'docs_songs.txt.gz'):
-        procs = mp.cpu_count()
-        pool = 30 #mp.Pool(procs)
+        procs = 30 #mp.cpu_count()
+        pool = mp.Pool(procs)
         files = glob.glob(scrobble_path+'*.txt')
         n = len(files)
         chunksize = int(math.ceil(n / float(procs)))
