@@ -51,8 +51,8 @@ def process_artist_blocks(fi):
     return userid,doc
 
 def get_songs(fi):
-    artists = [line.split('\t')[0] for line in open(fi)]
-    doc = ' '.join(artists)
+    songs = [line.split('\t')[0] for line in open(fi)]
+    doc = ' '.join(songs)
     userid = fi[fi.rfind('\\')+1:-4]
     return userid,doc
     
@@ -92,7 +92,8 @@ if __name__=='__main__':
                 indices.write(userid+'\n')
 
     with timed('Loading docs'):
-        documents = [doc for doc in tq(TaggedLineDocument(base_output_path+'docs_artist_blocks.txt.gz'))]
+        #documents = [doc for doc in tq(TaggedLineDocument(base_output_path+'docs_artist_blocks.txt.gz'))]
+        documents = [doc for doc in tq(TaggedLineDocument(base_output_path+'docs_songs.txt.gz'))]
     with timed('Running model'):
         model = Doc2Vec(documents, size=dim, window=win, min_count=min_count,workers=procs)
 
