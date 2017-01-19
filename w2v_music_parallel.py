@@ -21,7 +21,7 @@ class timed(object):
 
 
 dim = 200
-win = 5    
+win = 15    
 min_count = 100
 
 scrobble_path = 'P:/Projects/BigMusic/jared.IU/scrobbles-complete/'
@@ -108,7 +108,13 @@ if __name__=='__main__':
 
         # np.save(output_path+'/doc_features_normed-{}-{}-{}.npy'.format(dim,win,min_count),normed)
         # np.save(output_path+'/word_features_normed-{}-{}-{}.npy'.format(dim,win,min_count),words_normed)
-        model.save(output_path+'/model-{}-{}-{}'.format(dim,win,min_count))
+        model.save(output_path+'/word_indices'.format(dim,win,min_count))
+
+
+        with open('P:/Projects/BigMusic/jared.data/d2v/songs/200-5-100/word_indices','w') as out:
+            for idx in model.index2word:
+                out.write(idx+'\n')
+
 
     if False:
 
@@ -136,15 +142,15 @@ if __name__=='__main__':
 
         with timed('Sanity checks...'):
 
-            df = pd.read_pickle('P:/Projects/BigMusic/jared.rawdata/gracenote_song_data').set_index('songID')
+            df = pd.read_table('P:/Projects/BigMusic/jared.rawdata/gracenote_song_data').set_index('songID')
 
-            def get_most_similar(aid):
-                result = model.most_similar(aid)
-                sim = [x[0] for x in result]
-                for a in sim:
+            def get_most_similar(aid,topn):
+                result = model.most_similar(str(aid),topn=topn)
+                #sim = [int(x[0]) for x in result]
+                for a in result:
                     try:
-                        row = df.idx[aid]
-                        print [row[c] for c in ['gn_artist','gn_song','genre1','genre2','genre3']]
+                        row = df.ix[int(a[0])]
+                        print [row[c] for c in ['gn_artist','gn_song','genre1','genre2','genre3']]+[a[1]]
                     except:
                         print '???'
                     
@@ -152,7 +158,7 @@ if __name__=='__main__':
             for aid in df.head(1000).sample(25).index:
                 row = df.ix[aid]
                 print '------\n'+' - '.join([row[c] for c in ['gn_artist','gn_song','genre1','genre2','genre3']])+'\n------\n'
-                get_most_similar(aid)
+                get_most_similar(aid,topn=500)
 
     try:
         pool.close()
