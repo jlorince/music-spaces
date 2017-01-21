@@ -21,8 +21,8 @@ class timed(object):
 
 
 dim = 200
-win = 15    
-min_count = 100
+win = 50    
+min_count = 50
 
 scrobble_path = 'P:/Projects/BigMusic/jared.IU/scrobbles-complete/'
 #base_output_path = 'P:/Projects/BigMusic/jared.data/d2v/blocks/'
@@ -108,10 +108,10 @@ if __name__=='__main__':
 
         # np.save(output_path+'/doc_features_normed-{}-{}-{}.npy'.format(dim,win,min_count),normed)
         # np.save(output_path+'/word_features_normed-{}-{}-{}.npy'.format(dim,win,min_count),words_normed)
-        model.save(output_path+'/word_indices'.format(dim,win,min_count))
+        model.save(output_path+'model_{}-{}-{}'.format(dim,win,min_count))
 
 
-        with open('P:/Projects/BigMusic/jared.data/d2v/songs/200-5-100/word_indices','w') as out:
+        with open(output_path+'word_indices','w') as out:
             for idx in model.index2word:
                 out.write(idx+'\n')
 
