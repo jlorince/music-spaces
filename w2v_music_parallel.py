@@ -58,7 +58,7 @@ def get_songs(fi):
     
 if __name__=='__main__':
 
-    output_path = base_output_path+'{}-{}-{}'.format(dim,win,min_count)
+    output_path = base_output_path+'{}-{}-{}/'.format(dim,win,min_count)
     if os.path.exists(output_path):
         raise Exception('path exists!')
     else:
